@@ -42,12 +42,12 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
-    "@types/node": "^24.1.0",
-    "drizzle-kit": "^0.31.4"
+    "@types/node": "^24.1.0"
   },
   "dependencies": {
     "@libsql/client": "^0.15.10",
     "drizzle-orm": "^0.44.3",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "drizzle-kit": "^0.31.4"
   }
 }
