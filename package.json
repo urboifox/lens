@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "type": "module",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "author": "urboifox",
@@ -26,7 +27,8 @@
   ],
   "scripts": {
     "format": "prettier --write .",
-    "build": "tsup"
+    "build": "tsup && npm run build:ui",
+    "build:ui": "cd src/ui && npm run build && mv build ../../dist/ui"
   },
   "exports": {
     ".": {

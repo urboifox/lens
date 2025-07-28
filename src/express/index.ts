@@ -1,13 +1,14 @@
+import express from "express";
 import { NextFunction, Request, Response, Router } from "express";
 import {
   addEntry,
   clearEntries,
-  getEntries,
   getRequestQueries,
   init,
   lensStorage,
   logQuery,
 } from "../core";
+import path from "node:path";
 
 let initialized = false;
 
@@ -42,10 +43,12 @@ async function middleware(req: Request, res: Response, next: NextFunction) {
 function routes(): Router {
   const router = Router();
 
-  router.get("/", async (_, res) => {
-    const requests = await getEntries();
-    res.json({ requests });
-    // TODO: Server the ui here
+  const uiPath = path.resolve(__dirname, "ui");
+
+  router.use(express.static(uiPath));
+
+  router.get("/", (_, res) => {
+    res.sendFile(path.join(uiPath, "index.html"));
   });
 
   router.get("/clear", async (_, res) => {
