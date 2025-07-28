@@ -1,0 +1,51 @@
+{
+  "name": "lens",
+  "description": "Lens is a lightweight developer tool for Node.js apps that lets you log, view, and debug requests and other activity in real time — inspired by Laravel Telescope. ",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": "urboifox",
+  "homepage": "https://github.com/urboifox/lens",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/urboifox/lens"
+  },
+  "keywords": [
+    "telescope",
+    "lens",
+    "requests",
+    "tracking",
+    "analytics",
+    "logging",
+    "monitoring",
+    "debugging",
+    "coverage",
+    "backend"
+  ],
+  "scripts": {
+    "format": "prettier --write .",
+    "build": "tsup"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./express": {
+      "import": "./dist/express/index.js",
+      "types": "./dist/express/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "drizzle-kit": "^0.31.4"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.10",
+    "drizzle-orm": "^0.44.3",
+    "express": "^5.1.0"
+  }
+}
