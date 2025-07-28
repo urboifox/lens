@@ -1,7 +1,7 @@
 {
   "name": "node-lens",
   "description": "Lens is a lightweight developer tool for Node.js apps that lets you log, view, and debug requests and other activity in real time — inspired by Laravel Telescope. ",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "type": "module",
