@@ -7,7 +7,7 @@ import {
   init,
   lensStorage,
   logQuery,
-} from "..";
+} from "../core";
 
 let initialized = false;
 
@@ -39,7 +39,7 @@ async function middleware(req: Request, res: Response, next: NextFunction) {
   });
 }
 
-export function routes(): Router {
+function routes(): Router {
   const router = Router();
 
   router.get("/", async (_, res) => {
