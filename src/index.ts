@@ -1,9 +1,2 @@
-export {
-  init,
-  addEntry,
-  getEntries,
-  clearEntries,
-  logQuery,
-  getQueries,
-  getRequestQueries,
-} from "./core";
+export * from "./logger/index.js";
+export * from "./logger/types.js";

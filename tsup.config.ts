@@ -1,11 +1,11 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  format: [ "esm"],
-  entry: ["src/index.ts", "src/express/index.ts"],
+  format: ["esm", "cjs"],
+  entry: ["src/index.ts", "src/adapters/express.ts"],
+  outDir: "dist",
   dts: true,
   shims: true,
   skipNodeModulesBundle: true,
   clean: true,
-  external: ["./src/ui/build/handler.js"],
 });
