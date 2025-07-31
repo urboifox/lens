@@ -1,7 +1,7 @@
 import express from 'express';
-import { NextFunction, Request, Response, Router } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import path from 'node:path';
-import { clear, getRequestQueries, logQuery, logRequest } from '../logger';
+import { logRequest } from '../logger';
 import { LensOptions } from '../types';
 import { runWithRequestId } from '../logger/context';
 
@@ -40,40 +40,21 @@ async function middleware(req: Request, res: Response, next: NextFunction) {
     });
 }
 
-function routes(): Router {
-    const router = Router();
+function routes(): express.Router {
+    const router = express.Router();
 
     const uiPath = path.resolve(__dirname, '..', 'ui');
     router.use(express.static(uiPath));
 
-    router.get('/', (_, res) => {
+    router.use('/', (_, res) => {
         res.sendFile(path.join(uiPath, 'index.html'));
-    });
-
-    router.get('/clear', async (_, res) => {
-        clear();
-        res.json({ success: true });
-    });
-
-    router.get('/log', async (_, res) => {
-        logQuery({
-            query: 'SELECT * FROM entries',
-            durationMs: 100
-        });
-        res.json({ success: true });
-    });
-
-    router.get('/requests/:id/queries', async (req, res) => {
-        const id = req.params.id;
-        const queries = getRequestQueries(id);
-        res.json(queries);
     });
 
     return router;
 }
 
-export function lens(options: LensOptions = {}): Router {
-    const router = Router();
+export function lens(options: LensOptions = {}): express.Router {
+    const router = express.Router();
     router.use(middleware);
     router.use(options.path || '/lens', routes());
     return router;
