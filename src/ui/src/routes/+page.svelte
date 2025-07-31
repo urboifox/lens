@@ -1,5 +1,5 @@
 <script>
-	let count = $state(0);
+    let count = $state(0);
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -7,4 +7,4 @@
 
 <button onclick={() => count++}>count {count}</button>
 
-<a href="/requests/1234">Single request page</a>
+<a href="/lens/requests">Requests page</a>

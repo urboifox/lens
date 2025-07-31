@@ -10,7 +10,6 @@ export { createProxy } from '../logger/proxy';
 
 async function middleware(req: Request, res: Response, next: NextFunction) {
     const requestId = crypto.randomUUID();
-
     runWithRequestId(requestId, () => {
         const memoryUsageMb = process.memoryUsage().rss / 1024 / 1024;
         const start = process.hrtime();
@@ -46,7 +45,7 @@ function routes(): express.Router {
     const uiPath = path.resolve(__dirname, '..', 'ui');
     router.use(express.static(uiPath));
 
-    router.use('/', (_, res) => {
+    router.use('/{*splat}', (_, res) => {
         res.sendFile(path.join(uiPath, 'index.html'));
     });
 
@@ -54,8 +53,15 @@ function routes(): express.Router {
 }
 
 export function lens(options: LensOptions = {}): express.Router {
+    const path = options.path || '/lens';
+
     const router = express.Router();
     router.use(middleware);
-    router.use(options.path || '/lens', routes());
+
+    router.get('/lens-config', (_, res) => {
+        res.json({ path });
+    });
+
+    router.use(path, routes());
     return router;
 }

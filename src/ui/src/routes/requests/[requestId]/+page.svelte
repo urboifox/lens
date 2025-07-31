@@ -4,6 +4,4 @@
 
 <h1>Request {page.params?.requestId} page</h1>
 
-<!-- export async function entries() { -->
-<!--     return [{ requestId: '123' }]; -->
-<!-- } -->
+<a href="/lens">Go home</a>
