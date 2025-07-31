@@ -6,6 +6,30 @@ const logPath = path.join(process.cwd(), ".lens", "lens.ndjson");
 fs.mkdirSync(path.dirname(logPath), { recursive: true });
 const stream = fs.createWriteStream(logPath, { flags: "a" });
 
+const buffer: string[] = [];
+const FLUSH_INTERVAL = 100;
+let flushTimeout: NodeJS.Timeout | null = null;
+
+function flush() {
+  if (buffer.length) {
+    stream.write(buffer.join(""));
+    buffer.length = 0;
+  }
+  flushTimeout = null;
+}
+
+export function append(entry: LogEntry) {
+  buffer.push(JSON.stringify(entry) + "\n");
+
+  if (!flushTimeout) {
+    flushTimeout = setTimeout(flush, FLUSH_INTERVAL);
+  }
+}
+
+export function clear() {
+  fs.writeFileSync(logPath, "");
+}
+
 export function readLogs(): LogEntry[] {
   if (!fs.existsSync(logPath)) return [];
   const raw = fs.readFileSync(logPath, "utf8");
@@ -20,14 +44,6 @@ export function readLogs(): LogEntry[] {
       }
     })
     .filter((entry): entry is LogEntry => Boolean(entry));
-}
-
-export function append(entry: LogEntry) {
-  stream.write(JSON.stringify(entry) + "\n");
-}
-
-export function clear() {
-  fs.writeFileSync(logPath, "");
 }
 
 export function getEntries<T>(filterFn?: (entry: LogEntry) => boolean): T[] {
