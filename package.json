@@ -1,54 +1,54 @@
 {
-  "name": "node-lens",
-  "description": "Lens is a lightweight developer tool for Node.js apps that lets you log, view, and debug requests and other activity in real time — inspired by Laravel Telescope. ",
-  "version": "0.0.4",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "license": "MIT",
-  "author": "urboifox",
-  "homepage": "https://github.com/urboifox/lens",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/urboifox/lens"
-  },
-  "keywords": [
-    "telescope",
-    "lens",
-    "requests",
-    "tracking",
-    "analytics",
-    "logging",
-    "monitoring",
-    "debugging",
-    "coverage",
-    "backend"
-  ],
-  "scripts": {
-    "format": "prettier --write .",
-    "build": "rm -rf dist && tsup && npm run build:ui",
-    "build:ui": "cd src/ui && npm run build && mv build ../../dist/ui"
-  },
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.mjs"
+    "name": "node-lens",
+    "description": "Lens is a lightweight developer tool for Node.js apps that lets you log, view, and debug requests and other activity in real time — inspired by Laravel Telescope. ",
+    "version": "0.0.4",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "license": "MIT",
+    "author": "urboifox",
+    "homepage": "https://github.com/urboifox/lens",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/urboifox/lens"
     },
-    "./express": {
-      "types": "./dist/adapters/express.d.ts",
-      "import": "./dist/adapters/express.js",
-      "require": "./dist/adapters/express.mjs"
+    "keywords": [
+        "telescope",
+        "lens",
+        "requests",
+        "tracking",
+        "analytics",
+        "logging",
+        "monitoring",
+        "debugging",
+        "coverage",
+        "backend"
+    ],
+    "scripts": {
+        "format": "prettier --write .",
+        "build": "rm -rf dist && tsup && npm run build:ui",
+        "build:ui": "cd src/ui && npm run build && mv build ../../dist/ui"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.mjs"
+        },
+        "./express": {
+            "types": "./dist/adapters/express.d.ts",
+            "import": "./dist/adapters/express.js",
+            "require": "./dist/adapters/express.mjs"
+        }
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.3",
+        "@types/node": "^24.1.0"
+    },
+    "dependencies": {
+        "express": "^5.1.0"
     }
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.1.0"
-  },
-  "dependencies": {
-    "express": "^5.1.0"
-  }
 }

@@ -1,3 +1,3 @@
 export type LensOptions = {
-  path?: string;
+    path?: string;
 };

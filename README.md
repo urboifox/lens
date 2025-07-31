@@ -41,11 +41,11 @@ app.use(lens());
 
 // Your other routes and middleware...
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.send('Hello World!');
 });
 
 app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+    console.log('Server is running on port 3000');
 });
 ```
 
@@ -60,12 +60,12 @@ import { logQuery } from 'node-lens';
 
 // Example within a database service or request handler
 async function getUser(id: string) {
-  const query = `SELECT * FROM users WHERE id = '${id}'`;
+    const query = `SELECT * FROM users WHERE id = '${id}'`;
 
-  // Log the query to Lens
-  await logQuery(query);
+    // Log the query to Lens
+    await logQuery(query);
 
-  // ... execute query and return result
+    // ... execute query and return result
 }
 ```
 
@@ -75,7 +75,7 @@ async function getUser(id: string) {
 
 Creates the Express middleware and returns an Express `Router`.
 
--   `options.path`: The path to mount the Lens UI on. Defaults to `/lens`.
+- `options.path`: The path to mount the Lens UI on. Defaults to `/lens`.
 
 ### `init(): Promise<void>`
 
