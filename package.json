@@ -49,6 +49,8 @@
         "@types/node": "^24.1.0"
     },
     "dependencies": {
+        "@lucide/svelte": "^0.535.0",
+        "dayjs": "^1.11.13",
         "express": "^5.1.0"
     }
 }

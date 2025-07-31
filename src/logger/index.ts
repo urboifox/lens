@@ -47,3 +47,11 @@ export function getRequestQueries(requestId: string): LogQuery[] {
 export function getRecentRequests(limit = 50): LogRequest[] {
     return getRequests().slice(-limit).reverse();
 }
+
+export function getRecentQueries(limit = 50): LogQuery[] {
+    return getQueries().slice(-limit).reverse();
+}
+
+export function getQueryByRequestId(id: string): LogQuery | undefined {
+    return getEntries<LogQuery>((e) => e.type === 'query' && e.requestId === id)[0];
+}

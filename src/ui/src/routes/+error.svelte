@@ -2,7 +2,7 @@
     import { page } from '$app/state';
 </script>
 
-<div class="flex min-h-screen flex-col items-center justify-center">
+<div class="flex min-h-[80svh] w-full flex-1 flex-col items-center justify-center">
     <h1 class="text-lg font-medium">{page.status}</h1>
     {page.url.toString()}
     <p>{page.error?.message}</p>

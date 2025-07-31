@@ -1,7 +1,13 @@
 import express from 'express';
 import { NextFunction, Request, Response } from 'express';
 import path from 'node:path';
-import { getRequestById, getRequests, logRequest } from '../logger';
+import {
+    getQueryByRequestId,
+    getRecentQueries,
+    getRecentRequests,
+    getRequestById,
+    logRequest
+} from '../logger';
 import { LensOptions } from '../types';
 import { runWithRequestId } from '../logger/context';
 
@@ -46,12 +52,21 @@ function routes(): express.Router {
     router.use(express.static(uiPath));
 
     router.get('/api/requests', (_, res) => {
-        res.json(getRequests());
+        res.json(getRecentRequests());
     });
 
     router.get('/api/requests/:id', (req, res) => {
         const { id } = req.params;
         res.json(getRequestById(id));
+    });
+
+    router.get('/api/queries', (_, res) => {
+        res.json(getRecentQueries());
+    });
+
+    router.get('/api/queries/:id', (req, res) => {
+        const { id } = req.params;
+        res.json(getQueryByRequestId(id));
     });
 
     router.use('/{*splat}', (_, res) => {
@@ -65,12 +80,13 @@ export function lens(options: LensOptions = {}): express.Router {
     const path = options.path || '/lens';
 
     const router = express.Router();
-    router.use(middleware);
 
     router.get('/lens-config', (_, res) => {
         res.json({ path });
     });
 
     router.use(path, routes());
+
+    router.use(middleware);
     return router;
 }

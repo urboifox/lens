@@ -1,6 +1,6 @@
 <script lang="ts">
     import Table from '$lib/components/table.svelte';
-    import { type LogRequest } from '$lib/types.js';
+    import { type LogQuery } from '$lib/types.js';
     import { resolve } from '$lib/utils/resolve.svelte';
     import { CircleArrowRightIcon, PlusIcon } from '@lucide/svelte';
     import dayjs from 'dayjs';
@@ -12,38 +12,17 @@
         () =>
             ({
                 requestId: '123',
-                method: 'GET',
-                path: '/api/requests',
-                status: 200,
-                durationMs: 52,
+                query: 'SELECT * FROM users',
+                durationMs: 1.2,
+                type: 'query',
                 timestamp: Date.now()
-            }) as LogRequest
+            }) as LogQuery
     );
 </script>
 
-{#snippet methodSnippet(request: LogRequest)}
-    <span class="rounded-lg bg-neutral-800 px-2 py-1 text-sm font-semibold text-neutral-200">
-        {request.method}
-    </span>
-{/snippet}
-
-{#snippet statusSnippet(request: LogRequest)}
-    {@const status = request.status}
-    <span
-        class={[
-            'rounded-lg px-2 py-1 text-sm font-semibold text-neutral-200',
-            status >= 200 && status < 300 && 'bg-green-700',
-            status >= 300 && status < 400 && 'bg-yellow-700',
-            status >= 400 && status < 500 && 'bg-red-700'
-        ]}
-    >
-        {request.status}
-    </span>
-{/snippet}
-
-{#snippet actionsSnippet(request: LogRequest)}
+{#snippet actionsSnippet(query: LogQuery)}
     <a
-        href={resolve(`/requests/${request.requestId}`)}
+        href={resolve(`/queries/${query.requestId}`)}
         class="transition-colors duration-100 hover:text-white"
     >
         <CircleArrowRightIcon size={20} />
@@ -54,18 +33,8 @@
     <Table
         columns={[
             {
-                name: 'Method',
-                render: methodSnippet
-            },
-            {
-                name: 'Path',
-                value: (request) => request.path,
-                class: 'text-base text-neutral-200 line-clamp-2 max-w-80 min-w-40'
-            },
-            {
-                name: 'Status',
-                render: statusSnippet,
-                position: 'end'
+                name: 'Query',
+                value: (query) => query.query
             },
             {
                 name: 'Duration',
@@ -84,11 +53,11 @@
                 position: 'end'
             }
         ]}
-        data={data.requests}
+        data={data.queries}
     />
 
-    {#if !data.requests.length}
-        <p class="py-10 text-center text-neutral-400">No requests found</p>
+    {#if !data.queries.length}
+        <p class="py-10 text-center text-neutral-400">No queries found</p>
     {/if}
 
     <button
