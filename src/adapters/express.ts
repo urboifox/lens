@@ -1,7 +1,7 @@
 import express from 'express';
 import { NextFunction, Request, Response } from 'express';
 import path from 'node:path';
-import { logRequest } from '../logger';
+import { getRequestById, getRequests, logRequest } from '../logger';
 import { LensOptions } from '../types';
 import { runWithRequestId } from '../logger/context';
 
@@ -44,6 +44,15 @@ function routes(): express.Router {
 
     const uiPath = path.resolve(__dirname, '..', 'ui');
     router.use(express.static(uiPath));
+
+    router.get('/api/requests', (_, res) => {
+        res.json(getRequests());
+    });
+
+    router.get('/api/requests/:id', (req, res) => {
+        const { id } = req.params;
+        res.json(getRequestById(id));
+    });
 
     router.use('/{*splat}', (_, res) => {
         res.sendFile(path.join(uiPath, 'index.html'));

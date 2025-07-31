@@ -1,7 +1,12 @@
 <script lang="ts">
-	import '../app.css';
+    import { config } from '$lib/stores/config.svelte';
+    import '../app.css';
 
-	let { children } = $props();
+    let { data, children } = $props();
+
+    $effect(() => {
+        config.path = data.path;
+    });
 </script>
 
 {@render children()}

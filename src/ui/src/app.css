@@ -1,1 +1,23 @@
 @import 'tailwindcss';
+
+@theme {
+    --color-primary: oklch(0.76 0.1454 81.5);
+}
+
+@layer base {
+    body {
+        background-color: black;
+        color: white;
+    }
+
+    button {
+        cursor: pointer;
+    }
+}
+
+@layer utilities {
+    .container {
+        margin-inline: auto;
+        padding-inline: 10px;
+    }
+}

@@ -1,7 +1,13 @@
 <script>
-    import { page } from '$app/state';
+    import { resolve } from '$lib/utils/resolve.svelte.js';
+
+    const { data } = $props();
 </script>
 
-<h1>Request {page.params?.requestId} page</h1>
+<h1>Request {data.request.requestId} page</h1>
 
-<a href="/lens">Go home</a>
+<pre>
+    {JSON.stringify(data.request, null, 2)}
+</pre>
+
+<a href={resolve('/')}>Go home</a>

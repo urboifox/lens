@@ -1,10 +1,5 @@
 <script>
-    let count = $state(0);
+    import { resolve } from '$lib/utils/resolve.svelte';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-
-<button onclick={() => count++}>count {count}</button>
-
-<a href="/lens/requests">Requests page</a>
+<a href={resolve('/requests')}>Requests page</a>
