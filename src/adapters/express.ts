@@ -69,7 +69,7 @@ function routes(): express.Router {
         res.json(getQueryByRequestId(id));
     });
 
-    router.use('/{*splat}', (_, res) => {
+    router.use('/', (_, res) => {
         res.sendFile(path.join(uiPath, 'index.html'));
     });
 
@@ -85,8 +85,27 @@ export function lens(options: LensOptions = {}): express.Router {
         res.json({ path });
     });
 
-    router.use(path, routes());
+    router.use((req, res, next) => {
+        if (req.path !== path + '/' && req.path.length > path.length && req.path.endsWith('/')) {
+            const query = req.url.slice(req.path.length);
+            res.redirect(301, req.path.slice(0, -1) + query);
+        } else {
+            next();
+        }
+    });
 
+    router.use((req, _, next) => {
+        if (req.path.includes('/_app/')) {
+            const appPathIndex = req.path.indexOf('/_app/');
+            if (appPathIndex > 5) {
+                req.url = path + req.path.substring(appPathIndex);
+            }
+        }
+        next();
+    });
+
+    router.use(path, routes());
     router.use(middleware);
+
     return router;
 }

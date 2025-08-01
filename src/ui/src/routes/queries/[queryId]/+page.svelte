@@ -1,6 +1,4 @@
 <script>
-    import { resolve } from '$lib/utils/resolve.svelte.js';
-
     const { data } = $props();
 </script>
 
@@ -10,4 +8,4 @@
     {JSON.stringify(data.query, null, 2)}
 </pre>
 
-<a href={resolve('/')}>Go home</a>
+<a href="./">Go home</a>

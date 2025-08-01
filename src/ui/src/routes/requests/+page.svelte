@@ -1,7 +1,6 @@
 <script lang="ts">
     import Table from '$lib/components/table.svelte';
     import { type LogRequest } from '$lib/types.js';
-    import { resolve } from '$lib/utils/resolve.svelte';
     import { CircleArrowRightIcon, PlusIcon } from '@lucide/svelte';
     import dayjs from 'dayjs';
 
@@ -27,6 +26,15 @@
     </span>
 {/snippet}
 
+{#snippet pathSnippet(request: LogRequest)}
+    <a
+        href="./requests/{request.requestId}"
+        class="line-clamp-2 max-w-80 min-w-40 text-base text-neutral-200 hover:underline"
+    >
+        {request.path}
+    </a>
+{/snippet}
+
 {#snippet statusSnippet(request: LogRequest)}
     {@const status = request.status}
     <span
@@ -43,7 +51,7 @@
 
 {#snippet actionsSnippet(request: LogRequest)}
     <a
-        href={resolve(`/requests/${request.requestId}`)}
+        href="./requests/{request.requestId}"
         class="transition-colors duration-100 hover:text-white"
     >
         <CircleArrowRightIcon size={20} />
@@ -59,8 +67,7 @@
             },
             {
                 name: 'Path',
-                value: (request) => request.path,
-                class: 'text-base text-neutral-200 line-clamp-2 max-w-80 min-w-40'
+                render: pathSnippet
             },
             {
                 name: 'Status',

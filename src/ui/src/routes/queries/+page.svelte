@@ -1,7 +1,6 @@
 <script lang="ts">
     import Table from '$lib/components/table.svelte';
     import { type LogQuery } from '$lib/types.js';
-    import { resolve } from '$lib/utils/resolve.svelte';
     import { CircleArrowRightIcon, PlusIcon } from '@lucide/svelte';
     import dayjs from 'dayjs';
 
@@ -21,10 +20,7 @@
 </script>
 
 {#snippet actionsSnippet(query: LogQuery)}
-    <a
-        href={resolve(`/queries/${query.requestId}`)}
-        class="transition-colors duration-100 hover:text-white"
-    >
+    <a href="./queries/{query.requestId}" class="transition-colors duration-100 hover:text-white">
         <CircleArrowRightIcon size={20} />
     </a>
 {/snippet}

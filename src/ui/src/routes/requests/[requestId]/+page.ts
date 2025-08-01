@@ -5,8 +5,9 @@ import type { PageLoad } from './$types';
 
 export const prerender = false;
 
-export const load: PageLoad = async ({ fetch, params }) => {
-    const res = await fetch(resolve('/api/requests/' + params.requestId));
+export const load: PageLoad = async ({ fetch, params, parent }) => {
+    const data = await parent();
+    const res = await fetch(resolve('/api/requests/' + params.requestId, data.path));
 
     if (!res.ok) {
         throw redirect(302, '/requests');
